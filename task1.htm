@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .stuff {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    p {
+        padding-top: 20px;
+    }
+</style>
+
+<body>
+    <div class="stuff">
+        <div>
+            <h1>KİŞİ İŞÇİLƏR</h1>
+            <input oninput="search('m')" type="text" id="man">
+            <p id="stuff1"></p>
+        </div>
+        <div>
+            <h1>QADIN İŞÇİLƏR</h1>
+            <input id="woman" oninput="search('f')" type="text">
+            <p id="stuff2"></p>
+        </div>
+    </div>
+    <script>
+        const man = document.getElementById('man')
+        const woman = document.getElementById('woman')
+        const stuff1 = document.getElementById('stuff1')
+        const stuff2 = document.getElementById('stuff2')
+
+        let arr = [
+            { ad: 'Elvin', sex: 'm', salary: 4500 },
+            { ad: 'Xəzər', sex: 'm', salary: 4270 },
+            { ad: 'Elmir', sex: 'm', salary: 3550 },
+            { ad: 'İsmixan', sex: 'm', salary: 2700 },
+            { ad: 'Günel', sex: 'f', salary: 1740 },
+            { ad: 'Günəş', sex: 'f', salary: 2400 },
+            { ad: 'Fidan', sex: 'f', salary: 820 },
+            { ad: 'Rəvan', sex: 'm', salary: 700 },
+            { ad: 'Kənan', sex: 'm', salary: 2340 },
+            { ad: 'Azər', sex: 'm', salary: 1400 },
+            { ad: 'Musa', sex: 'm', salary: 2350 },
+            { ad: 'Vahid', sex: 'm', salary: 3340 },
+            { ad: 'David', sex: 'm', salary: 4700 },
+            { ad: 'Elcan', sex: 'm', salary: 1100 },
+            { ad: 'Yasəmən', sex: 'f', salary: 900 },
+        ]
+        function displaySex(sex, stuffs) {
+            stuffs.innerHTML = ''
+            arr.filter(item => item.sex == sex).forEach(item => {
+                stuffs.innerHTML += `${item.ad} : ${item.salary} <br>`
+            })
+        }
+        displaySex('m', stuff1)
+        displaySex('f', stuff2)
+
+        function search(sex) {
+            let inputVal = sex === 'm' ? man.value : woman.value
+            let stuffs = sex === 'm' ? stuff1 : stuff2
+            stuffs.innerHTML = ''
+            arr
+                .filter(item => item.sex === sex)
+                .filter(item => item.salary >= inputVal)
+                .filter(item => item.ad.toLocaleLowerCase().includes(inputVal.toLocaleLowerCase()))
+                .forEach(item => {
+                    stuffs.innerHTML += `${item.ad} : ${item.salary} <br>`   
+                })
+
+        }
+
+    </script>
+</body>
+
+</html>
